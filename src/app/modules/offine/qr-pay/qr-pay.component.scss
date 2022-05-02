@@ -1,0 +1,55 @@
+.mt-3{
+    margin-top: 2rem;
+}
+.balance-offline{
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+.alertqr-offline{
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.title{
+    font-size: 1.4rem;
+    text-align: center;
+}
+.padding-form{
+    padding: 0 1.3rem 0 1.3rem;
+}
+
+.title-qr{
+    padding: 0 1rem 0 1rem;
+}
+.qr-number{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--ion-color-diemo-info);
+}
+
+ion-button{
+    padding: 0 1.3rem 0 1.3rem;
+    --border-radius : 2rem;
+}
+ion-back-button{
+    --color: white !important;
+}
+ion-card{
+    border: 2px solid var(--ion-color-banplus-neutral)
+}
+.text-mobile{
+    font-size: 0.8rem;
+    padding-left: .5rem;
+    padding-right: 0.5rem;
+}
+.amount{
+    border: none;
+    border-width: 0px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.bp-text{
+    color: #888b8d;
+}

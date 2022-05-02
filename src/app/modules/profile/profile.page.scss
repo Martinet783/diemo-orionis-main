@@ -1,0 +1,64 @@
+ion-slides ion-card{
+  padding: 0rem;
+  margin: 0rem;
+  width: 10rem;
+}
+ion-slides ion-card ion-card-content{
+  padding: .5rem;
+  text-align: center;
+}
+ion-slide{
+  margin-right: .3rem;
+}
+.img-slide{
+  width: 3rem;
+  margin-left: 30%;
+  margin-top: 10px;
+  //height: 8.5rem;
+}
+.small-options{
+  text-align: center;
+  font-size: 0.80rem !important;
+}
+.wrapper-details{
+    display: flex;
+    flex-direction: column;
+}
+.item-wrapper{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 .5rem 0 .5rem;
+}
+ion-button{
+  --border-radius : 2rem;
+  padding: 0 1.5rem 0 1.5rem;
+}
+ion-card{
+  --color: black;
+}
+ion-back-button{
+  --color: white !important;
+}
+.ml-1{
+  margin-left: .5rem;
+}
+.mb-1{
+  margin-bottom: .5rem;
+}
+
+.info-afiliacion{
+  font-size: .8rem;
+}
+
+.text-status{
+  font-size: 3vw;
+  color: #888b8d !important;
+}
+
+ion-content >*{
+  color: #a6a6a6;
+}
+
+.bp-text{
+  color: #a6a6a6;
+}

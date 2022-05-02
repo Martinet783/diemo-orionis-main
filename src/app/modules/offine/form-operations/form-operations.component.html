@@ -1,0 +1,51 @@
+<ion-content class="bp-co">
+  <br>
+  <!-- <img src="assets/img/illustrations/offline-balance.svg" alt=""> -->
+  <fa-icon [icon]=faTimes [classes]="['close-icon']" (click)="dissmiss(false)" class="bp-blue"></fa-icon>
+  <form [formGroup]="transferForm" class="pf" novalidate>
+    <p class="bold text-center bp-blue" *ngIf="type_operation == 1">Recarga offline</p>
+    <p class="bold text-center bp-blue" *ngIf="type_operation == 2">Retiro offline</p>
+    <ion-list>
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Monto</ion-label>
+        <input class="amount" currencyMask type="tel" formControlName="amount" [options]="{ align: 'left', allowZero: false, allowNegative: false, prefix: '', thousands: '.', decimal: ',' }"/>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.required">
+        Monto es requerido
+      </p>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.pattern">
+        Este campo sólo acepta números
+      </p>
+        
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">PIN</ion-label>
+        <ion-input formControlName="pin" type="text" inputmode="numeric" maxlength="4" placeholder="PIN" id="pin"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.pin.errors?.required">
+        PIN es requerido
+      </p>
+      <p class="error" *ngIf="f.pin.errors?.pattern">
+        El PIN debe ser numérico y de 4 digitos
+      </p>
+
+      <ion-item lines="full" *ngIf="type_operation == 1" class="bp-text">
+        <ion-select formControlName="time" interface="action-sheet" placeholder="Días de expiración">
+            <ion-select-option value="" selected disabled> Días de expiración </ion-select-option>
+            <ion-select-option value=1>1 DÍA</ion-select-option>
+            <ion-select-option value=2>2 DÍAS</ion-select-option>
+            <ion-select-option value=3>3 DÍAS</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <p class="error" *ngIf="type_operation == 1 && isSubmitted && f.time.errors?.required">
+        Los dias de expiración es requerido
+      </p>
+    </ion-list>
+  
+    <br>
+    <ion-button class="send" expand="block" color="banplus-neutral" (click)="onSubmit()">
+      <span *ngIf="!loading">LISTO</span>
+      <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+    </ion-button>
+    <br>
+  </form>  
+</ion-content>

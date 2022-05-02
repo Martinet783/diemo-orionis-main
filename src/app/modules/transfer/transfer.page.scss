@@ -1,0 +1,124 @@
+ion-app.cameraView, 
+ion-app.cameraView ion-content, 
+ion-app.cameraView .nav-decor {
+    background: transparent none !important; 
+}
+
+.p-2{
+    padding: 2rem;
+}
+
+ion-button.send{
+    margin-top: .2rem;
+    --border-radius : 2rem;
+}
+
+.margin-search{
+    margin-top: .5rem;
+}
+
+.wrapper-balance{
+    background-color: #f1f1f1 !important;
+  }
+
+  .text-divisa{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-top: .5rem;
+    font-size: 1.5rem;
+  }
+  .wrap-balance{
+      display: flex;
+      justify-content: center;
+  }
+
+  .balance-card{
+    background-color: #f1f1f1 !important;
+  }  
+
+  .saldo{
+    color:#fff;
+    font-size:22px;
+    font-weight: bold;
+    --background: var(--ion-color-banplus-light) !important;
+    display: flex;
+    justify-content: space-between;
+  }
+
+ion-card{
+    margin-bottom: 0;
+}
+
+ion-badge{
+    width: 30vw;
+}
+
+.wrapper-description{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: .2rem;
+    
+}
+
+.add-text{
+    margin-left: 0.6rem;
+    font-size: 0.9rem;
+    padding-top: .6rem;
+}
+
+.error{
+    font-size: .75rem;
+    display: flex;
+    margin-left: 1rem;
+    font-weight: 600;
+    color: red;
+}
+
+.mt-1{
+    margin-top: .5rem;
+}
+.amount{
+    border: none;
+    border-width: 0px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+ion-back-button{
+    --color: white !important;
+  }
+
+ion-badge{
+    border-radius: 2rem;
+}
+
+.bolivar{
+    background-color: var(--ion-color-banplus-neutral);
+}
+
+.euro{
+    background-color: var(--ion-color-banplus-primary);
+}
+
+.dolar{
+    background-color: var(--ion-color-banplus-secondary);
+}
+
+.button-flex{
+    margin-bottom: 1rem;
+    border-radius: 20px !important;
+}
+
+ion-content > *{
+    color: #888b8d;
+}
+
+.bp-text{
+    color: #888b8d;
+}

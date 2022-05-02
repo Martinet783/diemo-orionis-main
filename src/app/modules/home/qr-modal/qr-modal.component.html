@@ -1,0 +1,32 @@
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <img src="https://dev.midiemo.com/global/api/wallet/myQR/{{qrID}}" style="margin:0 auto;display:block;width:260px" alt="">
+    </ion-item>
+    <ion-card>
+      <ion-item>
+        <!-- <ion-icon name="contact" slot="start"></ion-icon> -->
+        <ion-label class="bp-blue">Información de Contacto</ion-label>
+        <!-- <ion-button fill="outline" slot="end">View</ion-button> -->
+      </ion-item>
+
+      <ion-card-content>
+        <ion-item>
+          <!-- <pre>{{user | json}}</pre> -->
+          <p class="db-ma text-user text-center center" style="margin:0 auto;display:block;font-size:18px;">Usuario<br><strong style="color: #a6a6a6;">@{{user.user}}</strong></p>
+        </ion-item>
+        <br>
+        <ion-item>
+          <p class="db-ma text-user text-center center" style="margin:0 auto;display:block;font-size:18px;">Teléfono<br><strong style="color: #a6a6a6;">{{user.subPhoneNo}}</strong></p>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <br>
+    <br>
+    <ion-button expand=block (click)="close()">
+      CERRAR
+    </ion-button>
+  </ion-list>
+  <br>
+  <br>
+</ion-content>

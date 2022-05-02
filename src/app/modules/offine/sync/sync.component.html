@@ -1,0 +1,41 @@
+<form [formGroup]="form" class="padding-form">
+  <div class="d-flex justify-content-center text-center mt-1">
+    <small>
+      SELECCIONA POR CUANTOS DÍAS DESEAS ALMACENAR TU SALDO OFFLINE DENTRO DE TU WALLET PLUS
+    </small>
+  </div>
+  <ion-list>
+    <p class="bold" style="margin-left:10px">AJUSTES DE PAGO OFFLINE</p>
+    <!-- <ion-item lines="full">
+      <ion-label position="stacked">Contraseña Offline</ion-label>
+      <ion-input formControlName="sw" type="password" placeholder="Contraseña Offline"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.sw.errors?.required">
+      Contraseña offline es requerida
+    </p> -->
+    <br>
+    <ion-item lines="full">
+      <ion-label position="stacked">Días para expiración del saldo sin conexión</ion-label>
+      <ion-select formControlName="date" interface="action-sheet" placeholder="Días de expiración">
+          <ion-select-option value="" selected disabled> Días de expiración </ion-select-option>
+          <ion-select-option value=1>1 DÍA</ion-select-option>
+          <ion-select-option value=2>2 DÍAS</ion-select-option>
+          <ion-select-option value=3>3 DÍAS</ion-select-option>
+      </ion-select>
+      <p class="error" *ngIf="isSubmitted && f.date.errors?.required">
+        Dias de expiración es requerido
+      </p>
+    </ion-item>
+    <br>
+    <br>
+    <br>
+    <ion-button expand=block color=banplus-neutral (click)="sync()" class="sync">
+      <span *ngIf="!loading">
+        <fa-icon [icon]="faSyncAlt"></fa-icon> <span class="pl-1">APLICAR AJUSTES</span>
+      </span>
+      <span *ngIf="loading">
+        <ion-spinner name="crescent"></ion-spinner>
+      </span>
+    </ion-button>
+  </ion-list>
+</form>

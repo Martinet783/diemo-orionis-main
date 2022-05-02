@@ -1,0 +1,93 @@
+// @import '/themes/fonts';
+
+*{
+  font-family: 'Product Sans', monospace;
+}
+
+.wrapper-logo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo{
+    width: 13rem;
+    height: 2.8rem;
+    margin-top: 3rem;
+}
+
+.wrapper-form{
+    padding: 2.2rem;
+}
+
+ion-button.login-button{
+    margin-top: 2rem;
+    --border-radius: 4rem;
+}
+
+ion-button{
+    --border-radius: 4rem;
+}
+
+.forgot-text{
+    margin-top: 1.5rem;
+    color: var(--ion-color-banplus-light);
+    font-size: .9rem;
+}
+
+ion-item {
+    --highlight-color-focused: var(--ion-color-diemo-info);
+}
+
+.separator{
+    border-bottom: 2px solid var(--ion-color-banplus-info);
+    width: 10rem;
+}
+
+// .separator-pay{
+//     border-bottom: 1px solid var(--ion-color-diemo-primary);
+//     width: 10rem;
+// }
+
+.or{
+    margin-bottom: -.5rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.wrapper-separator{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.pay{
+    font-size: 1rem;
+    text-align: center;
+    color: var(--ion-color-banplus-primary);
+}
+
+.by-diemo{
+    color: var(--ion-color-banplus-info);
+    font-size: small;
+}
+
+.diemo-logo{
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+ion-icon{
+    margin-left: 1rem;
+    margin-top: 1.3rem;
+    margin-bottom: 1.3rem;
+}
+
+.bp-text{
+    color: #888b8d;
+}
+

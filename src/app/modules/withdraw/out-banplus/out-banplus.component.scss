@@ -1,0 +1,25 @@
+.wrapper-description{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bp-text{
+    color: #888b8d;
+}
+
+.amount{
+    border: none;
+    border-width: 0px;
+    background-color: transparent;
+    &:focus{
+        outline: none !important;
+    }
+}
+
+ion-button.send{
+    margin-top: .2rem;
+    --border-radius : 2rem;
+}

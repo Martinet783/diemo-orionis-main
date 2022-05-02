@@ -1,0 +1,45 @@
+.title-list{
+    margin-left: .5rem;
+    font-size:1.4rem;
+    color: #888b8d;
+  }
+  .nt-title{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ion-color-banplus-dark);
+  }
+  .img-transactions{
+    width: 50%;
+  }
+  .text-success{
+    color: var(--ion-color-success);
+  }
+  .text-danger{
+    color: var(--ion-color-danger);
+  }
+  .fs-subtitle{
+    font-size: .8rem;
+  }
+  .status{
+    font-size: .8rem;
+  }
+  .date-transaction{
+    font-size: .8rem;
+    font-weight: bold;
+  }
+  .status-success{
+    font-weight: bold;
+    color: var(--ion-color-success);
+  }
+  .amount{
+    font-size: 0.85rem;
+    position: absolute;
+    right: 1rem;
+    top: 2.2rem;
+    font-weight: bold;
+  }
+
+.bp-text{
+  color: #888b8d;
+}

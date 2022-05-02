@@ -1,0 +1,30 @@
+.pf{
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+ion-button{
+    --border-radius: 2rem;
+}
+
+img{
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 2rem;
+}
+.amount{
+    border: none;
+    border-width: 0px;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.bp-text{
+    color: #888b8d;
+}
+
+.bp-co{
+    --offset-top:-20px !important
+}

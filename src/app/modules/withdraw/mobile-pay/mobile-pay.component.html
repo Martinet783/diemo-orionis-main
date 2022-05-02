@@ -1,0 +1,44 @@
+<div class="wrapper-description">
+  <br>
+  <!-- <img src="assets/img/illustrations/from-wallet-to-bank.svg" class="mb-1" style="width:50%" alt="">  -->
+  <ion-text class="text-center bp-text">
+    Recuerda que para poder realizar retiros desde tu billetera, debes afiliar tu cuenta banplus a través del portal www.banplus.com
+  </ion-text>
+</div>
+
+<form [formGroup]="transferForm" novalidate class="p-1">
+  <ion-list>
+    <ion-item lines="full" class="bp-text">
+      <ion-label position="stacked">Monto 
+        <span *ngIf="divisa == 'bs'">Bs.</span>
+        <span *ngIf="divisa == 'usd'">$</span>
+        <span *ngIf="divisa == 'eur'">€</span>
+      </ion-label>
+      <input class="amount" currencyMask type="tel" formControlName="amount" [options]="{ align: 'left', allowZero: false, allowNegative: false, prefix: '', thousands: '.', decimal: ',' }"/>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.amount.errors?.required">
+      Monto es requerido
+    </p>
+    <ion-item lines="full" class="bp-text">
+      <ion-label position="stacked">PIN</ion-label>
+      <ion-input id="pin" formControlName="pin" inputmode="numeric" (ionChange)="onKeyPin(f.pin)" type="text" placeholder="PIN" max="4"></ion-input>
+    </ion-item>
+    <br>
+    <span class="error" *ngIf="isSubmitted && f.pin.errors?.required">
+      PIN nuevo es requerido
+    </span>
+    <span class="error" *ngIf="f.pin.errors?.maxlength || f.pin.errors?.minlength">
+      El PIN debe ser de 4 caracteres numéricos
+    </span>
+    <span class="error" *ngIf="f.pin.errors?.pattern">
+      El PIN debe ser numérico
+    </span>
+
+  </ion-list>
+  <br>
+  <ion-button class="send" expand="block" [class.button-disabled]="loading" color="banplus-neutral" (click)="submitForm()">
+    <span *ngIf="!loading">Retirar</span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+  <br>
+</form>

@@ -1,0 +1,78 @@
+<div class="wrapper-mobile">
+  <div class="grid">
+    <div class="bounded-number">1</div>
+    <ion-card>
+      <p class="text-mobile"> 
+        Realiza una transferencia bancaria desde cualquier banco a los siguientes datos:
+      </p>
+    </ion-card>
+  </div>
+
+  <ul>
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <!-- <fa-icon [icon]=faMobileAlt></fa-icon>-->
+          <span class="pl-1 bp-blue">
+            NRO. DE CUENTA:
+          </span>  
+        </div>
+        
+        <ion-button color=banplus-light (click)="copy('01740101771014255358')">
+           <span> 0174 0101 7710 1425 5358 </span> 
+        </ion-button>
+      </div>
+    </li>
+    <li class="bold"> 
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+         <!-- <fa-icon [icon]=faUniversity></fa-icon> -->
+          <span class="pl-1 bp-blue">
+            BANPLUS
+          </span>
+        </div>
+        
+        <ion-button color=banplus-light (click)="copy('293944481')">
+          <span>RIF : J-293944481 </span>
+        </ion-button>
+      </div>
+    </li>
+    <li class="bold"> 
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <!-- <fa-icon [icon]=faUniversity></fa-icon>  -->
+          <span class="pl-1 bp-blue">
+            BENEFICIARIO
+          </span>
+        </div>
+        
+        <ion-button color=banplus-light (click)="copy('Diemo CA')">
+          <span>Diemo CA </span>
+        </ion-button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="grid">
+    <div class="bounded-number">2</div>
+    <ion-card>
+      <p class="text-mobile"> 
+        Una vez realices la transferencia bancaria, debes registrar los datos de la transferencia haciendo clic en el siguiente botón.
+      </p>
+    </ion-card>
+  </div>
+<!-- <br>
+  <ion-text class="bold small text-uppercase" color=danger>
+    La transferencia debe hacerse efectiva para poder registrar la recarga.
+  </ion-text>
+  <br> -->
+  <ion-text class="bold small" style="color: red;">
+    Transferencias entre distintos bancos pueden tardar hasta 24 horas en hacerse efectivas.
+  </ion-text>
+  <br>
+  <br>
+  <ion-button expand=block color=banplus-neutral (click)="presentModal()" routerLinkActive="router-link-active"> 
+    <span *ngIf="!loading">REGISTRAR RECARGA</span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+</div>

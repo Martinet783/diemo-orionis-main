@@ -1,0 +1,73 @@
+
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <br>
+  <br>
+  <ion-spinner name="crescent"></ion-spinner>
+</div>
+
+
+<ion-list lines=none *ngIf="transactions?.length > 0 && !loading">
+  <ion-list-header>
+    <br>
+    <br>
+    <span class="title-list bp-blue">  Últimas transacciones</span>
+  </ion-list-header>
+
+  <ion-item-sliding *ngFor="let item of transactions" (click)="detailsTransaction(item)">
+    <ion-item>
+      <ion-label>
+
+        <p class="title-transactions bp-dark-gray">
+          <span *ngIf="item.operationType == 1">
+            RECARGA
+          </span>
+          <span *ngIf="item.operationType == 2">
+            TRANSFERENCIA
+          </span>
+          <span *ngIf="item.operationType == 3">
+            RETIRO
+          </span>
+          <span *ngIf="item.operationType == 4 && item.idBoxTransactionType == 1">
+            RECARGA OFFLINE
+          </span>
+          <span *ngIf="item.operationType == 4 && item.idBoxTransactionType == 2">
+            RETIRO OFFLINE
+          </span>
+          <span *ngIf="item.operationType == 4 && item.idBoxTransactionType == 3 || item.idBoxTransactionType == 4">
+            PAGO OFFLINE
+          </span>
+          <span class="bold fs-subtitle">
+           #{{item.traceNumber | slice : item.traceNumber?.length - 6 : item.traceNumber?.length}}
+          </span>
+        </p>
+        <p class="status">
+          <span class="text-danger bold" *ngIf="item.status == 0">
+            RECHAZADO
+          </span>
+          <span class="text-warning bold" *ngIf="item.status == 1">
+            ESPERANDO APROBACIÓN
+          </span>
+          <span class="bp-blue bold" *ngIf="item.status == 2">
+            APROBADO
+          </span>
+          <span class="text-danger bold" *ngIf="item.status == 3">
+            NO CONFIRMADO
+          </span>
+        </p>
+        <p class="date-transaction bp-gray">{{item.created_at * 1000 | date:'dd/MM/yyyy hh:mm:ss aa'}}</p>
+        <span class="amount status bp-dark-gray">
+          <span *ngIf="item.idBoxTransactionType == 2 || item.idBoxTransactionType == 3 || item.idBoxTransactionType == 4">-</span>
+          <span *ngIf="item.idBoxTransactionType == 1">+</span>
+          Bs. {{transform(item.amount)}}
+        </span>
+      </ion-label>
+    </ion-item>
+    <ion-item-options>
+      <ion-item-option color="banplus-neutral" (click)="detailsTransaction(item)">
+        <ion-icon slot="start" name="eye"></ion-icon>
+        VER
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
+<detail-transaction (close)="outputDetailsTransaction($event)" [transaction]="transaction" *ngIf="showDetails"></detail-transaction>

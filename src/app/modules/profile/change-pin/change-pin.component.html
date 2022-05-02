@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <ion-buttons slot="start" >
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="color: white;">CAMBIAR PIN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <img src="/assets/img/illustrations/change-pin.svg" class="padding-illustation" alt=""> -->
+  <p class="padding-text text-center">Ingresa tu nuevo PIN</p>
+  <form [formGroup]="changepinForm" class="padding-form">
+
+    <ion-item class="bp-text">
+      <ion-label position="floating">PIN nuevo</ion-label>
+      <ion-input formControlName="newPIN" inputmode="numeric" (ionChange)="onKeyPin(f.newPIN)" type="text" placeholder="PIN" id="pin"></ion-input>
+    </ion-item>
+    <br>
+    <span class="error" *ngIf="isSubmitted && f.newPIN.errors?.required">
+      PIN nuevo es requerido
+    </span>
+    <span class="error" *ngIf="f.newPIN.errors?.maxlength || f.newPIN.errors?.minlength">
+      El PIN debe ser de 4 caracteres numéricos
+    </span>
+    <span class="error" *ngIf="f.newPIN.errors?.pattern">
+      El PIN debe ser numérico
+    </span>
+    <ion-item class="bp-text">
+      <ion-label position="floating">Confirmación de PIN</ion-label>
+      <ion-input formControlName="newPIN2" id="pin" maxlength="4" type="text" inputmode="numeric" [ngClass]="{'is-invalid': isSubmitted && f.newPIN2.errors}" ></ion-input>
+    </ion-item>
+    <span class="error" *ngIf="isSubmitted && f.newPIN2.errors?.required">
+      Confirmación de PIN es requerido
+    </span>
+    <p class="error" *ngIf="f.newPIN2.errors?.NoPinMatch">
+      El PIN no coincide
+    </p>
+  </form>
+  <br>
+  <br>
+  <ion-button color=banplus-neutral expand=block (click)="onSubmit()">
+    <span *ngIf="!loading">ACTUALIZAR</span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+</ion-content>

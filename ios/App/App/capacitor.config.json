@@ -1,0 +1,14 @@
+{
+  "appId": "com.mobile.diemo.walletplus",
+  "appName": "Wallet Plus",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "linuxAndroidStudioPath": "/snap/android-studio/100/android-studio/bin/studio.sh",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

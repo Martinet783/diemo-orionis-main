@@ -1,0 +1,63 @@
+
+<ion-content>
+  <img src="../../../../../assets/img/zelle.webp"
+  class="img-zelle"
+  alt="">
+  <div class="wrapper-mobile">
+  <ul>
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <fa-icon [icon]="faMail"></fa-icon>
+          <span class="pl-1">
+            CORREO ELECTRÓNICO
+          </span>
+        </div>
+  
+        <ion-button color=banplus-dark (click)="copy('pagos@celpago.com')">
+           <span>pagos@celpago.com</span>
+        </ion-button>
+        <br>
+      </div>
+    </li>
+  
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <fa-icon [icon]="faUser"></fa-icon>
+          <span class="pl-1">
+            NOMBRE
+          </span>
+        </div>
+        <ion-button color=banplus-dark (click)="copy('Celpago LLC')">
+          <span>Celpago LLC </span>
+        </ion-button>
+      </div>
+    </li>
+
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <fa-icon [icon]="faCode"></fa-icon>
+          <span class="pl-1">
+            CÓDIGO ÚNICO DE RECARGA
+          </span>
+        </div>
+        <ion-button color=banplus-dark (click)="copy('{{ me }}')">
+          <span>{{ me }} </span>
+        </ion-button>
+      </div>
+    </li>
+  </ul>
+
+  <ion-text class="ion-text-justify">EL CÓDIGO ÚNICO DE RECARGA INDICADO DEBE SER INGRESADO EN EL NOTE / MESSAGE / DESCRIPTION DE LA TRANSFERENCIA ZELLE. SI NO INTRODUCE ESTE CÓDIGO, NO SERÁ POSIBLE RECARGAR SU BILLETERA.</ion-text>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button type="button" color="banplus-secondary" expand="block" (click)="close()">
+    <span>ACEPTAR</span>
+  </ion-button>
+</ion-footer>

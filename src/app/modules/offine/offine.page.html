@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+    <ion-title class="text-center bold" style="color:white;">PAGO SIN CONEXIÓN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card (click)="sync=false">
+        <ion-item lines=none>
+          <ion-label class="text-center title">
+            BALANCE OFFLINE
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          <p class="text-center balance-offline" *ngIf="!loadingb">Bs. {{transform(balance)}}</p>
+          <div class="loadingSpinner">
+            <ion-spinner name="crescent" *ngIf="loadingb"></ion-spinner>
+          </div>
+          <!-- <fa-icon [icon]=faSpinner [classes]="['db-ma']" [spin]=true *ngIf="loadingb"></fa-icon> -->
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size=6>
+      <ion-card (click)="presentModalForm(1)" class="options-card">
+        <ion-card-content class="flex-center">
+          <fa-icon class="flex-center" [icon]="faWallet" size="1x"></fa-icon>
+        </ion-card-content>
+      </ion-card>
+      <div class="text-center small-options">RECARGAR</div>
+    </ion-col>
+    <ion-col size=6>
+      <ion-card (click)="presentModalForm(2)" class="options-card">
+        <ion-card-content class="flex-center">
+          <fa-icon class="flex-center" [icon]="faMoneyBill" size="1x"></fa-icon>
+        </ion-card-content>
+      </ion-card>
+      <div class="text-center small-options">RETIRAR</div>
+    </ion-col>
+  </ion-row>
+
+  <ion-button (click)="showModalDownloading()" class="save mt-1 pl-2 pr-2" color=banplus-neutral expand=block>GUARDAR Y VOLVER</ion-button>
+
+
+  <ion-button class="close-form" *ngIf="showForm" color=light (click)="showForm=false">
+    <fa-icon [icon]=faTimes></fa-icon>
+  </ion-button>
+
+  <transactions *ngIf="!sync"></transactions>
+
+
+  <sync-component *ngIf="sync"></sync-component>
+
+
+</ion-content>

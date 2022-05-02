@@ -1,0 +1,200 @@
+<fa-icon [icon]=faTimes [classes]="['close-icon']" (click)="dismiss()" class="bp-text bp-blue"></fa-icon>
+<ion-content>
+  <h2 style="margin-left:10px" class="bp-blue">Detalle de la Operación</h2>
+  <br>
+  <br>
+  <!-- <img src="/assets/img/illustrations/transactions-details2.svg" style="margin:0 auto; display:block; width:60%" alt=""> -->
+
+  <br>
+  <br>
+  <ion-list *ngIf="transactions">
+    <ion-item *ngIf="transactions.traceNumber" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Referencia Wallet Plus</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.traceNumber}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.bankReference" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Referencia Bancaria</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.bankReference}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.created_at" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Fecha de transacción</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.created_at * 1000 | date:'dd MMM yy, HH:mm'}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.destinyName" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Destino</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.destinyName | uppercase}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.originName" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Origen</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.originName | uppercase}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.destiny" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Destino</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.destiny}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.origin" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Origen</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">{{transactions.origin}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.amount" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Monto de la transacción</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">
+            <span *ngIf="transactions.currency == 'bs'">Bs.</span>
+            <span *ngIf="transactions.currency == 'usd'">$</span>
+            <span *ngIf="transactions.currency == 'eur'">€</span>
+            <span *ngIf="transactions.operationType != 9">{{transform(transactions.amount)}}</span>
+            <span *ngIf="transactions.operationType == 9">{{transform(transactions.commission)}}</span>
+            
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item *ngIf="transactions.operationType" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Tipo de Operación</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">
+            <span *ngIf="transactions.operationType == 1">RECARGAR WALLET</span>
+            <span *ngIf="transactions.operationType == 2">TRANSFERENCIA</span>
+            <span *ngIf="transactions.operationType == 3">RETIRO A BANPLUS</span>
+            <span *ngIf="transactions.operationType == 4">
+              <span *ngIf="transactions.idBoxTransactionType == 1">RECARGA OFFLINE</span>
+              <span *ngIf="transactions.idBoxTransactionType == 2">RETIRO OFFLINE</span>
+              <span *ngIf="transactions.idBoxTransactionType == 4">PAGO OFFLINE</span>
+            </span>
+            <span *ngIf="transactions.operationType == 5">PAGO EN POS</span>
+            <span *ngIf="transactions.operationType == 6">PAGO A MARKET</span>
+            <span *ngIf="transactions.operationType == 7">PAGO DE NÓMINA</span>
+            <span *ngIf="transactions.operationType == 9">PAGO DE COMISIÓN</span>
+            <span *ngIf="transactions.operationType == 11">LIQUIDACIÓN A BS</span>
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.status && transactions.operationType != 4" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Estatus de transacción</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">
+            <span *ngIf="transactions.status == 1">APROBADO</span>
+            <span *ngIf="transactions.status == 2">RECHAZADO</span>
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="transactions.status && transactions.operationType == 4" class="bp-text">
+      <ion-label>
+        <ion-text class="bp-dark-gray">
+          <h2>Estatus de transacción</h2>
+        </ion-text>
+        <ion-text class="bp-gray">
+          <h2 style="text-align:right;font-weight:bold">
+            <span *ngIf="transactions.status == 0">RECHAZADO</span>
+            <span *ngIf="transactions.status == 1">ESPERANDO APROBACIÓN</span>
+            <span *ngIf="transactions.status == 2">APROBADO</span>
+            <span *ngIf="transactions.status == 3">NO CONFIRMADO</span>
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+<!-- 
+        <ion-item *ngIf="transactions.balance_before">
+          <ion-label>
+            <ion-text>
+              <h2>Saldo antes de la transacción</h2>
+            </ion-text>
+            <ion-text>
+              <h2 style="text-align:right;font-weight:bold">Bs. {{transactions.balance_before | number:'.2'}}</h2>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngIf="transactions.balance_after">
+          <ion-label>
+            <ion-text>
+              <h2>Saldo después de la transacción</h2>
+            </ion-text>
+            <ion-text>
+              <h2 style="text-align:right;font-weight:bold">Bs. {{transactions.balance_after | number:'.2'}}</h2>
+            </ion-text>
+          </ion-label>
+        </ion-item> -->
+
+
+
+  </ion-list>
+
+</ion-content>
+<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <defs>
+    <linearGradient id="gradient">
+      <stop offset="5%" stop-color="#6ABF4B" /> 
+      <stop offset="95%" stop-color="#a4c639" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#gradient)" fill-opacity="1"
+    d="M0,128L48,133.3C96,139,192,149,288,176C384,203,480,245,576,245.3C672,245,768,203,864,170.7C960,139,1056,117,1152,117.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+  </path>
+</svg> -->

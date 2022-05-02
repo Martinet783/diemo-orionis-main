@@ -1,0 +1,24 @@
+ion-slide {
+    height: calc(100vh - 140px);
+  }
+  ion-back-button{
+    --color: white !important;
+  }
+
+  .text-divisa{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: .5rem;
+    font-size: 1.5rem;
+  }
+
+  .wrap-balance{
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper-balance{
+  background-color: #f1f1f1!important;
+}

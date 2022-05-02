@@ -1,0 +1,49 @@
+.saldo{
+    --background: var(--ion-color-banplus-light);
+    color:#fff;
+    font-size: var(--font-balance);
+    font-weight: bold;
+    margin: .5rem;
+}  
+
+.balance-card{
+    background-color: var(--ion-color-banplus-light) !important;
+  }
+
+.amount{
+    border: none;
+    border-width: 0px;
+}
+
+.text-divisa{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-top: .5rem;
+    font-size: 1.5rem;
+  }
+
+  .wrap-card{
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+  }
+
+ion-button{
+    margin-top: .2rem;
+    --border-radius : 2rem;
+}
+
+input:focus{
+    outline: none;
+}
+
+.ml-1{
+    margin-left: 1rem;
+}
+
+ion-text.bold > h3,h4{
+    font-weight: bold;
+}

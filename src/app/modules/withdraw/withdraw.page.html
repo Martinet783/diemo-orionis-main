@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="color:white;">Retirar a Banplus</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card class="balance-card wrapper-balance">
+
+  <ion-text class="text-divisa bp-dark-gray">
+    Saldo {{ divisa | uppercase}} 
+  </ion-text>
+  <div class="wrap-balance">
+    <balance></balance>
+  </div>
+</ion-card>
+
+<ion-segment scrollable color="ion-color-banplus-light" (ionChange)="segmentChanged($event)" value="0">
+  <ion-segment-button value="0" checked>
+    <ion-label>BANPLUS</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="1">
+    <ion-label>PAGO MÓVIL</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+<ion-content>
+  <mobile-pay-withdraw *ngIf="segment == '0'"></mobile-pay-withdraw>
+  <app-out-banplus *ngIf="segment == '1'"></app-out-banplus>
+</ion-content>

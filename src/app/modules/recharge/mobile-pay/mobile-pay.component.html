@@ -1,0 +1,56 @@
+<div class="wrapper-mobile">
+  <div class="grid">
+    <div class="bounded-number">1</div>
+    <ion-card>
+      <p class="text-mobile">
+        Realiza un pago móvil desde cualquier banco a los siguientes datos:
+      </p>
+    </ion-card>
+  </div>
+
+  <ul>
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <!-- <fa-icon [icon]=faMobileAlt></fa-icon>-->
+          <span class="pl-1 bp-blue">
+            NRO. DE CELULAR:
+          </span>
+        </div>
+
+        <ion-button color=banplus-light (click)="copy('04122444440')">
+           <span> 04122444440</span>
+        </ion-button>
+        <br>
+      </div>
+    </li>
+    <li class="bold">
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-row">
+          <!-- <fa-icon [icon]=faUniversity></fa-icon>-->
+          <span class="pl-1 bp-blue">
+            BANPLUS
+          </span>
+        </div>
+        <ion-button color=banplus-light (click)="copy('293944481')">
+          <span>RIF: J-293944481 </span>
+        </ion-button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="grid">
+    <div class="bounded-number">2</div>
+    <ion-card>
+      <p class="text-mobile">
+        Una vez realices el pago móvil, haz clic en el siguiente botón para registrar la recarga.
+      </p>
+    </ion-card>
+  </div>
+  <br>
+  <ion-button expand=block color=banplus-neutral (click)="presentModal()">
+    <span>REGISTRAR RECARGA</span>
+  </ion-button>
+</div>
+<br>
+<br>

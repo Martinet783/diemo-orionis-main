@@ -1,0 +1,16 @@
+<!-- <ion-text class="text-center">
+    Selecciona tu divisa
+</ion-text> -->
+<form [formGroup]="formGroup">
+    <ion-select 
+        name="currency" 
+        cancel-text="Cancelar" 
+        interface="action-sheet"
+        (ionChange)="changeCurrency()"  
+        formControlName="currency">
+            <ion-select-option value="">SELECCIONA TU DIVISA</ion-select-option>
+            <ion-select-option value="bs">Bolívares soberanos</ion-select-option>
+            <ion-select-option value="usd">Dólar</ion-select-option>
+            <ion-select-option value="eur">Euro</ion-select-option>
+    </ion-select>
+</form>

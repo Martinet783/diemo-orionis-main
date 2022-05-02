@@ -1,0 +1,26 @@
+.pl-1{
+    padding-left: .5rem;
+}
+.avatar-list{
+    height: 2rem;
+    width: 2rem;
+    color: white;
+    background: #0097ce;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+.content-loading{
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bp-co{
+    --offset-top:-20px !important
+}

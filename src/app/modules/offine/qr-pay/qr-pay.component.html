@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="banplus-secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="color:white;">PAGO SIN CONEXIÓN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <ion-row>
+    <ion-col>
+      <ion-card color=banplus-neutral *ngIf="dataOffline.balance">
+        <ion-card-content>
+            <ion-label class="db-ma title">
+              BALANCE
+            </ion-label>
+          <p class="text-center balance-offline">Bs. {{transform(dataOffline.balance)}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <form [formGroup]="qrForm" *ngIf="!showQR" class="padding-form">
+    <ion-item lines="full" class="bp-text">
+      <ion-label position="stacked">Monto</ion-label>
+      <input class="amount" currencyMask type="tel" formControlName="amount" [options]="{ align: 'left', allowZero: false, allowNegative: false, prefix: '', thousands: '.', decimal: ',' }"/>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.amount.errors?.required">
+      Monto es requerido
+    </p>
+    <ion-item lines="full" class="bp-text">
+      <ion-label position="stacked">POS ID</ion-label>
+      <ion-input type="number"  formControlName="posId" placeholder="POS ID"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.posId.errors?.required">
+      POS ID es requerido
+    </p>
+    <ion-item lines="full" class="bp-text">
+      <ion-label position="stacked">Clave de transacción</ion-label>
+      <ion-input formControlName="pin_offline" type="password" placeholder="Clave de transacción"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.pin_offline.errors?.required">
+      Clave de transacción es requerida
+    </p>
+    <br>
+    <div class="d-flex justify-content-center" style="color:red;font-weight:bold">
+      <small>
+        LA CLAVE DE TRANSACCIÓN ESTARÁ VIGENTE SÓLO PARA ESTA OPERACIÓN Y DEBE COMUNICARLA ÚNICAMENTE CON EL OPERADOR DEL COMERCIO QUE REALICE EL COBRO OFFLINE.
+      </small>
+    </div>
+    <div class="grid">
+      <ion-card>
+        <p class="text-mobile"> 
+          EL OPERADOR DEL COMERCIO QUE REALICE EL COBRO OFFLINE DEBE ESTAR PREPARADO PARA ESCANEAR EL CÓDIGO QR ANTES DE DARLE CLIC AL SIGUIENTE BOTÓN.
+        </p>
+      </ion-card>
+    </div>
+    <ion-button expand=block color=banplus-neutral (click)="onSubmit()">GENERAR QR</ion-button>
+  </form>
+  <p class="title-qr" *ngIf="showQR">ESTE <span class="bold">CÓDIGO QR</span> SE VA A DESTRUIR EN </p>
+  <p class="text-center qr-number" *ngIf="showQR">{{qr_number}} segundos</p>
+  <div class="d-flex justify-content-center mt-3" *ngIf="showQR">
+    <qr-code [value]="QR" [size]="300"></qr-code>
+  </div>
+  <br>
+</ion-content>

@@ -1,0 +1,201 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <ion-buttons slot="start" >
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="color: white;">Historial de Transacciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main">
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="loading-spinner" *ngIf="loadingTransactions">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  
+  <ion-card *ngIf="!loadingTransactions">
+    <ion-card-header>
+      <ion-card-title class="bp-blue text-center">Resumen de transacciones</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-row>
+        <ion-col size=6 class="bp-dark-gray">
+          # Transacciones
+        </ion-col>
+        <ion-col size=6>
+          <p class="resume-amount">{{nroTransactions}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size=6 class="bp-dark-gray">
+          Entradas
+        </ion-col>
+        <ion-col size=6>
+          <p class="resume-amount add">{{ coin }} {{transform(entradas)}}</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size=6 class="bp-dark-gray">
+          Salidas
+        </ion-col>
+        <ion-col size=6>
+          <p class="resume-amount less">{{ coin }} {{transform(salidas)}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list lines=none *ngIf="!loadingTransactions">
+    <ion-list-header class="position-relative" >
+       <h4 class="bp-blue"> Últimas transacciones</h4>
+       <ion-button size=1x color=banplus-neutral class="button-filter" (click)="resetFilter(filter)">
+         <fa-icon [icon]=faFilter *ngIf="!filter"></fa-icon>
+         <fa-icon [icon]=faTimes *ngIf="filter"></fa-icon>
+       </ion-button>
+    </ion-list-header>
+    
+    <div *ngIf="filter">
+      <ion-row>
+        <ion-col class="bp-text">
+          <ion-label class="bold small padding-label ">Fecha inicio</ion-label>
+          <ion-datetime
+          displayFormat="DD MM YYYY"
+          placeholder="Fecha inicio"
+          [doneText]="ok"
+          [cancelText]="cancel"
+          [(ngModel)]="startDate"
+          max="{{now}}" 
+          #ctrl="ngModel"
+          ></ion-datetime>
+
+        </ion-col>
+
+        <ion-col class="bp-text">
+          <ion-label class="bold small padding-label">Fecha final</ion-label>
+          <ion-datetime
+          displayFormat="DD MM YYYY"
+          placeholder="Fecha final"
+          [doneText]="ok"
+          [cancelText]="cancel"
+          [(ngModel)]="endDate"
+          max="{{now}}"  
+          #ctrl="ngModel"
+          ></ion-datetime>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="bp-text">
+          <ion-label class="bold small padding-label">Tipo de operación</ion-label>
+          <ion-select [(ngModel)]="type" #ctrl="ngModel" [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Selecciona un tipo">
+            <ion-select-option value="transfer">TRANSFERENCIA</ion-select-option>
+            <ion-select-option value="withdraw">RETIRO</ion-select-option>
+            <ion-select-option value="topUp">RECARGA</ion-select-option>
+            <ion-select-option value="offline">OFFLINE</ion-select-option>
+            <ion-select-option value="bulk_child">PAGO DE NÓMINA</ion-select-option>
+            <ion-select-option value="pos_pay">PAGO A POS</ion-select-option>
+            <ion-select-option value="diemoMarket_pay">PAGO A MARKET</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+
+      <ion-button expand="block" color="banplus-neutral" (click)="filterTransaction()"> 
+        <span *ngIf="!spinner">FILTRAR</span>
+        <fa-icon [icon]="faSpinner" [spin]="true" *ngIf="spinner"></fa-icon>
+        
+      </ion-button>
+    </div>
+
+    <ion-item-sliding *ngFor="let item of transactions" (click)="detailsTransaction(item)">
+      <ion-item>
+        <ion-label>
+          <p class="title-transactions bp-dark-gray" style="font-size:14px">
+            <span *ngIf="item.operationType == 1">
+              RECARGA
+            </span>
+            <span *ngIf="item.operationType == 2">
+              TRANSFERENCIA
+            </span>
+            <span *ngIf="item.operationType == 3">
+              RETIRO
+            </span>
+            <span *ngIf="item.operationType == 4">
+              <span *ngIf="item.idBoxTransactionType == 1">RECARGA OFFLINE</span>
+              <span *ngIf="item.idBoxTransactionType == 2">RETIRO OFFLINE</span>
+            </span>
+            <span *ngIf="item.operationType == 5">
+              PAGO A POS
+            </span>
+            <span *ngIf="item.operationType == 6">
+              PAGO A MARKET
+            </span>
+            <span *ngIf="item.operationType == 7">
+              PAGO DE NÓMINA
+            </span>
+            <span *ngIf="item.operationType == 9">
+              PAGO DE COMISIÓN
+            </span>
+            <span *ngIf="item.operationType == 11">
+              LIQUIDACIÓN A BS
+            </span>
+            <span class="bold fs-subtitle" *ngIf="item.status != 1">
+             #{{item.traceNumber | slice : item.traceNumber?.length - 6 : item.traceNumber?.length}}
+            </span>
+
+          </p>
+          <p class="status" *ngIf="item.operationType !== 4">
+            <span class="bp-blue" *ngIf="item.status == 1">
+              APROBADO
+            </span>
+            <span class="text-danger" *ngIf="item.status !== 1">
+              RECHAZADO
+            </span>
+          </p>
+
+          <p class="status" *ngIf="item.operationType == 4">
+            <span class="text-danger" *ngIf="item.status == 0">
+              RECHAZADO
+            </span>
+            <span class="text-danger" *ngIf="item.status == 1">
+              ESPERANDO APROBACIÓN
+            </span>
+            <span class="bp-blue" *ngIf="item.status == 2">
+              APROBADO
+            </span>
+            <span class="text-danger" *ngIf="item.status == 3">
+              NO CONFIRMADO
+            </span>
+          </p>
+
+          <p class="date-transaction bold bp-gray">{{item.created_at * 1000 | date:'dd/MM/yyyy hh:mm:ss aa'}}</p>
+          <span class="amount status bp-dark-gray">
+            <span *ngIf="item.debe == 2">-</span>
+            <span *ngIf="item.debe == 1">+</span>
+            <span *ngIf="item.operationType != 9">{{ coin }} {{transform(item.amount)}}</span>
+            <span *ngIf="item.operationType == 9">{{ coin }} {{transform(item.commission)}}</span>
+            
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="banplus-neutral" (click)="detailsTransaction(item)">
+          <ion-icon slot="start" name="eye"></ion-icon>
+          VER DETALLES
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+  <ion-list *ngIf="transactions?.length == 0 && !loadingTransactions">
+    <ion-item>
+      <p class="text-center">No posees transacciones</p>
+      <!-- <img src="/assets/img/illustrations/no-transactions.svg" class="img-transactions" alt=""> -->
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<detail-transaction (close)="outputDetailsTransaction($event)" [transaction]="transaction" *ngIf="showDetails"></detail-transaction>

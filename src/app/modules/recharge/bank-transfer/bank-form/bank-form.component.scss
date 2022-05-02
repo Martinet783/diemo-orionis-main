@@ -1,0 +1,38 @@
+.displayed{
+  display: block;
+  width: 65%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+}
+ion-button.close-form{
+  position: absolute;
+  right: .5rem;
+  --border-radius: 2rem;
+}
+ion-button{
+    --border-radius : 2rem;
+    padding: 0 1.5rem 0 1.5rem;
+}
+ion-back-button{
+    --color: white !important;
+}
+.amount{
+  border: none;
+  border-width: 0px;
+}
+textarea:focus, input:focus{
+  outline: none;
+}
+.form_bank{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 5rem;
+}
+ion-content >*{
+  color: #888b8d;
+}
+
+.bp-text{
+  color: #888b8d !important;
+}

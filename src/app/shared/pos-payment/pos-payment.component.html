@@ -1,0 +1,118 @@
+<ion-content class="bp-co">
+  <fa-icon [icon]=faTimes [classes]="['close-icon']" (click)="dismiss(true)" class="bp-text"></fa-icon>
+  <h2 style="margin-left:7px" class="bp-text">Detalles de la transacción</h2>
+  <br>
+  <br>
+  <!-- <img src="/assets/img/illustrations/transaction-details.svg" style="margin:0 auto; display:block; width:40%" alt=""> -->
+  <br>
+  <br>
+  <ion-item lines=none *ngIf="count && (payment.operationType == 5 || payment.operationType == 10)">
+   <ion-text class="db-ma bp-text">
+     <h4> Este cobro expira en {{count}} segundos </h4>
+   </ion-text>
+  </ion-item>
+
+  <ion-item lines=none *ngIf="expired && (payment.operationType == 5 || payment.operationType == 10)">
+    <ion-text class="db-ma">
+      <h3> Este cobro está expiradO </h3>
+    </ion-text>
+   </ion-item>
+
+
+  <ion-list>
+    <ion-item *ngIf="false" class="bp-text">
+      <ion-label>
+        <ion-text>
+          <h2>Número de referencia</h2>
+        </ion-text>
+        <ion-text>
+          <h2 style="text-align:right;font-weight:bold">{{payment.traceNumber}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="payment.created_at" class="bp-text">
+      <ion-label>
+        <ion-text>
+          <h2>Fecha de transacción</h2>
+        </ion-text>
+        <ion-text>
+          <h2 style="text-align:right;font-weight:bold">{{payment.created_at * 1000 | date:'dd MMM yy HH:mm'}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="payment.amount" class="bp-text">
+      <ion-label>
+        <ion-text>
+          <h2>Monto de la transacción</h2>
+        </ion-text>
+        <ion-text>
+          <h2 style="text-align:right;font-weight:bold"> 
+            <span *ngIf="payment.currency == 'bs'">Bs.</span>
+            <span *ngIf="payment.currency == 'usd'">$</span>
+            <span *ngIf="payment.currency == 'eur'">€</span>
+            {{transform(payment.amount)}}
+          </h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="payment.documento" class="bp-text">
+      <ion-label>
+        <ion-text>
+          <h2>Comercio</h2>
+        </ion-text>
+        <ion-text>
+          <h2 style="text-align:right;font-weight:bold">{{payment.user_name | uppercase}}</h2>
+        </ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <br>
+
+  <ion-item *ngIf="showPin" class="item-p bp-text">
+    <ion-label position="floating">PIN</ion-label>
+    <ion-input id="pin" name=pin [(ngModel)]="pin2" [ngClass]="{'is-invalid': pin.invalid}" 
+    #pin="ngModel" inputmode="numeric" type=text required minlength="4" maxlength="4"></ion-input>  
+  </ion-item>
+
+
+  <ion-button expand=block class="button-pos bold" *ngIf="!showPin && !expired" color=banplus-neutral (click)="showPin=true">
+    ACEPTO EL PAGO
+  </ion-button>
+
+  <ion-button expand=block class="button-pos bold" *ngIf="expired" color=danger (click)="dismiss(true)">
+    CERRAR
+  </ion-button>
+
+
+  <ion-button expand=block class="button-pos bold" *ngIf="showPin && !order && showAcep" [disabled]="loading" color=banplus-neutral (click)="confirmPayment(true)">
+    <span *ngIf="!loading"> ACEPTO PAGO </span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+
+  <ion-button expand=block class="button-pos bold" *ngIf="showPin && order && showAcep" [disabled]="loading" color=banplus-neutral (click)="confirmOrder(true)">
+    <span *ngIf="!loading"> ACEPTO PAGO </span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+
+  <ion-button expand=block *ngIf="order && !expired && showRecha" class="button-pos bold" [disabled]="loading" color=banplus-dark (click)="confirmOrder(false)">
+    <span *ngIf="!loading"> RECHAZO EL PAGO</span>
+   <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+
+  <ion-button expand=block *ngIf="!order && !expired && showRecha" class="button-pos bold" [disabled]="loading" color=banplus-info-dark (click)="confirmPayment(false)">
+    <span *ngIf="!loading"> RECHAZO EL PAGO</span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+  <br>
+</ion-content>
+<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <defs>
+    <linearGradient id="gradient">
+      <stop offset="5%" stop-color="#6ABF4B" /> 
+      <stop offset="95%" stop-color="#a4c639" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#gradient)" fill-opacity="1" d="M0,128L48,133.3C96,139,192,149,288,176C384,203,480,245,576,245.3C672,245,768,203,864,170.7C960,139,1056,117,1152,117.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+</svg>-->

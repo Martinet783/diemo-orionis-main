@@ -1,0 +1,62 @@
+.balance-offline{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.title{
+    font-size: 1.4rem;
+    text-align: center;
+    color: #888b8d;
+}
+
+ion-card.options-card{
+    border-radius: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background: var(--ion-color-banplus-neutral);
+    color: white;
+    display: block;
+    margin: 0 auto;
+}
+
+.small-options{
+    font-size: 0.9rem !important;
+    margin-top: .5rem;
+    color: #888b8d;
+}
+
+ion-button.close-form{
+    position: absolute;
+    right: .5rem;
+    --border-radius: 2rem;
+}
+
+.save{
+    --border-radius: 2rem;
+}
+
+.mt-2{
+    margin-top: 2rem;
+}
+
+.pr-2{
+    padding-right: 2rem;
+}
+
+.pl-2{
+    padding-left: 2rem;
+}
+
+.border-radius{
+    border-radius : 2rem;   
+}
+
+ion-back-button{
+    --color: white !important;
+}
+.loadingSpinner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

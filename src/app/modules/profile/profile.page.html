@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <ion-buttons slot="start" >
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="text-align: center;color: white;">Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/profile/pin']" routerLinkActive="router-link-active" >
+        <img src="/assets/img/illustrations/password.svg" class="img-slide" alt="">
+        <ion-item lines="none">
+          <ion-label class="small-options bp-text">
+            Cambiar Pin
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card [routerLink]="['/profile/password']" routerLinkActive="router-link-active">
+        <img src="/assets/img/illustrations/lock.svg" class="img-slide" alt="" width="10px">          
+        <ion-item lines="none">
+          <div class="small-options bp-text">
+            Cambiar Contraseña
+          </div>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <br>
+  <ion-button *ngIf="finger" expand=block color=banplus-dark (click)="deleteFingerprint()">
+    Eliminar huella registrada <ion-icon name="finger-print-outline"></ion-icon>
+  </ion-button>
+  <br>
+  <p class="text-center bold bp-blue">Información afiliación</p>
+  <ion-card>
+    <ion-item class="bp-text">
+      <ion-label>
+        Estado
+      </ion-label>
+      <ion-label class="text-status" >
+        {{statusA}}
+      </ion-label>
+      <ion-button *ngIf="showPreafiliar" expand=block color=banplus-neutral (click)="preafiliar()">
+        <span *ngIf="!loading">PREAFILIAR</span>
+        <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+      </ion-button>  
+
+    </ion-item>
+    <ion-item *ngIf="showPreafiliar || showAfiliar" class="text-status">
+      <ion-label *ngIf="showPreafiliar" class="ion-text-wrap info-afiliacion">Por favor seleccione preafiliar para iniciar el proceso de afiliación</ion-label>
+      <ion-label *ngIf="showAfiliar" class="ion-text-wrap info-afiliacion">Por favor ingrese en www.banplus.com para confirmar su afiliación en la sección de Wallets.</ion-label>
+    </ion-item>
+  </ion-card>
+  <p class="text-center bold bp-blue">Datos personales</p>
+  <ion-card *ngIf="!showForm" >  
+    <ion-item class="text-status">
+      <ion-label>
+        Usuario
+      </ion-label>
+      <ion-label>
+        {{user.user | uppercase}}
+      </ion-label>
+    </ion-item>
+    <ion-item class="text-status">
+      <ion-label>
+        Nombre
+      </ion-label>
+      <ion-label>
+        {{user.subName}}
+      </ion-label>
+    </ion-item>
+    <ion-item class="text-status">
+      <ion-label>
+        Teléfono
+      </ion-label>
+      <ion-label>
+        {{user.subPhoneNo}}
+      </ion-label>
+    </ion-item>
+    <ion-item class="text-status">
+      <ion-label>
+        Correo
+      </ion-label>
+      <ion-label>
+        {{user.emailID}}
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <form [formGroup]="profileForm" *ngIf="showForm">
+    <ion-list>
+       <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="text-status">
+            <ion-label position="stacked">Cod. de Operadora</ion-label>
+            <ion-select formControlName="operator" interface="action-sheet" placeholder="Selecciona una operadora">
+                <ion-select-option value="" selected disabled> Cod. de Operadora </ion-select-option>
+                <ion-select-option value=414>0414</ion-select-option>
+                <ion-select-option value=424>0424</ion-select-option>
+                <ion-select-option value=412>0412</ion-select-option>
+                <ion-select-option value=426>0426</ion-select-option>
+                <ion-select-option value=416>0416</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.operator.errors?.required">
+            Operadora es requerida
+          </p>
+        </ion-col>
+          <ion-col>
+            <ion-item lines="full" class="text-status">
+              <ion-label position="stacked">Teléfono</ion-label>
+              <ion-input formControlName="subPhoneNo" type="text" inputmode="numeric" (ionChange)="onKeyPhone(f.subPhoneNo)" placeholder="Teléfono"></ion-input>
+            </ion-item>
+            <p class="error" *ngIf="isSubmitted && f.subPhoneNo.errors?.required">
+              Teléfono es requerido
+            </p>
+            <span class="error" *ngIf="isSubmitted && f.subPhoneNo.errors?.pattern">
+              Teléfono solo acepta números
+            </span>
+            <span class="error" *ngIf="f.subPhoneNo.errors?.maxlength || f.subPhoneNo.errors?.minlength">
+              Teléfono debe ser de 7 caracteres numéricos
+            </span>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="text-status">
+            <ion-label position="stacked">Correo electrónico</ion-label>
+            <ion-input formControlName="emailID" type="text" placeholder="Correo electrónico"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.emailID.errors?.required">
+            Correo electrónico es requerido
+          </p>
+          <p class="error" *ngIf="isSubmitted && f.emailID.errors?.email">
+            Debe ser un correo electrónico válido
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </form>
+
+  <br>
+  <ion-button *ngIf="!showForm" expand=block color=banplus-neutral (click)="showForm = !showForm;dataInForm(profileForm.value)">
+    EDITAR
+  </ion-button>
+
+  <ion-button class="mb-1" *ngIf="showForm" expand=block color=banplus-neutral (click)="onSubmit()">
+    <span *ngIf="!loading">ACTUALIZAR</span>
+    <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+  </ion-button>
+
+  <ion-button *ngIf="showForm" expand=block color=banplus-info-dark (click)="showForm = !showForm">
+    <fa-icon [icon]=faTimes></fa-icon> <span class="ml-1">DESCARTAR</span>
+  </ion-button>
+  <br><br>
+  <p style="font-size:15px; margin-left:10px;">Versión {{version}}</p>
+</ion-content>

@@ -1,0 +1,340 @@
+<ion-toolbar color="" class="toolki">
+  <ion-buttons slot="start">
+    <ion-button>
+      <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+
+      <ion-menu-button auto-hide="false" style="color: #007CBA;"></ion-menu-button>
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end" class="button-logout" (click)="logout()">
+    <ion-icon name="exit" style="color: #007CBA;"></ion-icon>
+  </ion-buttons>
+
+  <ion-title>
+    <div class="wrapper-logo text-center">
+      <img src="/assets/img/logo/banplus/wallet-plus.png" class="logo" alt="">
+      <br>
+    </div>
+  </ion-title>
+</ion-toolbar>
+
+
+<ion-menu side="start" menuId="first" contentId="main">
+  <ion-header>
+    <ion-toolbar color="banplus-primary">
+     <!-- <ion-title class="bold" style="font-size:16px; color: white;">Menú Wallet Plus</ion-title>
+      <br>-->
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item [routerLink]="['/profile']" routerLinkActive="router-link-active">
+        <ion-icon name="person-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Mi perfil
+        </span>
+      </ion-item>
+      <ion-item [routerLink]="['/recharge']" routerLinkActive="router-link-active">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Notificación de Recarga
+        </span>
+      </ion-item>
+      
+      <ion-item [routerLink]="['/transfer']" routerLinkActive="router-link-active">
+        <ion-icon name="swap-horizontal-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Realizar transferencias
+        </span>
+      </ion-item>
+
+      <ion-item [routerLink]="['/withdraw']" routerLinkActive="router-link-active">
+        <ion-icon name="cash-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Retirar a Banplus
+        </span>
+      </ion-item>
+
+      <!-- <ion-item [routerLink]="['/withdraw']" *ngIf="divisa == 'bs'" routerLinkActive="router-link-active">
+        <ion-icon name="cash-outline"></ion-icon>
+        <span style="padding: 1rem;">
+          Retirar a Banplus
+        </span>
+      </ion-item> 
+       
+      <ion-item [routerLink]="['/exchange']" *ngIf="divisa == 'usd'" routerLinkActive="router-link-active">
+        <ion-icon name="cash-outline"></ion-icon>
+        <span style="padding: 1rem;">
+          Liquidar a Bs
+        </span>
+      </ion-item> -->
+      
+      <ion-item [routerLink]="['/payments']" routerLinkActive="router-link-active">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Pagos pendientes
+        </span>
+      </ion-item>
+      <ion-item [routerLink]="['/transactions']" routerLinkActive="router-link-active">
+        <ion-icon name="list-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Historial de transacciones
+        </span>
+      </ion-item>
+      <ion-item (click)="logout()" routerLinkActive="router-link-active">
+        <ion-icon name="log-out-outline"></ion-icon>
+        <span style="padding: 1rem;" class="bp-text">
+          Cerrar sesión
+        </span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main">
+  <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- <app-currency></app-currency> -->
+
+  <ion-card>
+    <ion-card-content class="content-padding">
+      <div class="wrapper-welcome">
+        <div>
+          <div>
+            <ion-label class="welcome-text">
+              Bienvenid<span *ngIf="user.gender == 0">o</span>
+              <span *ngIf="user.gender == 1">a</span>
+              <span *ngIf="user.gender == 2">e</span>,
+              {{user.firstName | titlecase}}
+            </ion-label>
+          </div>
+          <div class="last-connection">
+            ÚLTIMA CONEXIÓN: {{user.last_login * 1000 | date:'dd/MM/yyyy hh:mm:ss aa'}}
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row class="ion-align-items-center">
+    <ion-col size="12" class="ion-text-center">
+      <ion-item class="ion-align-items-center" style="padding-left:1rem" lines="none">
+        <ion-button class="moneda-button" color="none" id="usd" (click)="changeDivisa('usd')">
+          <img class="coin" style="height: 40px;width: 40px;" src="/assets/img/dollar-symbol.svg" >
+        </ion-button>
+        <ion-button class="ion-align-items-center" class="moneda-button" color="none" id="bs" (click)="changeDivisa('bs')">
+          <img style="height: 40px;width: 40px;" src="/assets/img/venezuela-bolivar2.png">
+        </ion-button>
+        <ion-button class="moneda-button" color="none" id="eur" (click)="changeDivisa('eur')" >
+          <img style="height: 40px;width: 40px;" src="/assets/img/coin.svg">
+        </ion-button>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-card class="balance-card">
+      <ion-row>
+        <ion-col>
+          <div class="wrapper-balance" >
+            <ion-item lines="none"  class="saldo">Tu saldo</ion-item>
+            <balance lines="none" class="saldo"></balance>
+          </div>
+        </ion-col>
+        <!--<ion-col class="d-flex"  size="3.5">
+           <img src="/assets/img/illustrations/balance-card.svg" class="img-fluid" alt=""> 
+        </ion-col>-->
+      </ion-row>
+    
+  </ion-card>
+
+  <ion-card class="card-finger" *ngIf="finger">
+    <div class="d-flex">
+      <ion-row>
+        <ion-col>
+          <ion-text class="text-center">
+            <p class="text-finger">Hemos detectado un dispositivo compatible con biometría, si deseas sincronizarlo pulsa el ícono</p>
+          </ion-text>
+        </ion-col>
+        <ion-col class="icon-finger" size="4" (click)="registerFirgenprint()">
+          <ion-icon name="finger-print-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-card>
+
+  <div class="wrapper-options">
+    <ion-row>
+      <ion-col>
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('recharge')">
+            <fa-icon [icon]="faWallet" size="1x"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="size: 1rem;font-weight:500; color: #888b8d;" >Recargar mi Wallet</div>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('withdraw')">
+            <fa-icon [icon]="faMoneyBill" size="1x"></fa-icon>
+          </ion-card>
+          <div class="text-center bp-tex" style="font-size:1rem;font-weight:500;color: #888b8d;" >Retirar a Banplus</div>
+        </div>
+      </ion-col>
+
+      <!-- <ion-col *ngIf="divisa == 'bs' || divisa == 'eur'">
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('withdraw')">
+            <fa-icon [icon]="faMoneyBill" size="1x"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="font-size:1rem;font-weight:500">Retirar a Banplus</div>
+        </div>
+      </ion-col>
+
+      <ion-col *ngIf="divisa == 'usd'">
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('exchange')">
+            <fa-icon [icon]="faMoneyBill" size="1x"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="font-size:1rem;font-weight:500">Liquidar a Bs</div>
+        </div>
+      </ion-col> -->
+
+      <ion-col>
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('transfer')">
+            <fa-icon [icon]="faExchangeAlt" size="1x"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="font-size:1rem;font-weight:500;color: #888b8d;">Realizar transferencia</div>
+        </div>
+      </ion-col>
+
+      <!-- <ion-col *ngIf="divisa == 'bs'">
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('offine')">
+            <fa-icon [icon]="faPlane" size="1x" [rotate]="270"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="font-size:1rem;font-weight:500;">Pago sin conexión</div>
+        </div>
+      </ion-col> -->
+
+      <ion-col *ngIf="divisa == 'bs'">
+        <div class="col-flex">
+          <ion-card class="card-custom" (click)="goTo('offine')">
+            <fa-icon [icon]="faPlane" size="1x" [rotate]="270"></fa-icon>
+          </ion-card>
+          <div class="text-center" style="font-size:1rem;font-weight:500;color: #888b8d;" >Pago sin conexión</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <app-orders></app-orders>
+
+  <div class="d-block text-center p-1 pt-0" *ngIf="transactions?.length == 0">
+
+    <!-- <img src="/assets/img/illustrations/no-transactions.svg" class="img-transactions" alt="">-->
+    <p class="nt-title">No has realizado transacciones</p>
+  </div>
+
+  <div class="d-block text-center p-1 pt-0" *ngIf="loadingTransactions">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <ion-list lines=none *ngIf="transactions?.length > 0 && !loadingTransactions">
+    <ion-list-header>
+      <p class="balance-text bp-blue">Tus últimas transacciones</p>
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let item of transactions" (click)="detailsTransaction(item)">
+      <ion-item>
+        <ion-label class="bp-dark-gray">
+          <p>
+            <span *ngIf="item.operationType == 1">
+              RECARGA
+            </span>
+            <span *ngIf="item.operationType == 2">
+              TRANSFERENCIA
+            </span>
+            <span *ngIf="item.operationType == 3">
+              RETIRO
+            </span>
+            <span *ngIf="item.operationType == 4">
+              <span *ngIf="item.idBoxTransactionType == 1">RECARGA OFFLINE</span>
+              <span *ngIf="item.idBoxTransactionType == 2">RETIRO OFFLINE</span>
+            </span>
+            <span *ngIf="item.operationType == 5">
+              PAGO A POS
+            </span>
+            <span *ngIf="item.operationType == 6">
+              PAGO A MARKET
+            </span>
+            <span *ngIf="item.operationType == 7">
+              PAGO DE NÓMINA
+            </span>
+            <span *ngIf="item.operationType == 9">
+              PAGO DE COMISIÓN
+            </span>
+            <span *ngIf="item.operationType == 11">
+              LIQUIDACIÓN A BS
+            </span>
+            <span class="bold">
+              #{{item.traceNumber | slice : item.traceNumber?.length - 6 : item.traceNumber?.length}}
+            </span>
+
+          </p>
+          <p *ngIf="item.operationType != 4" class="status">
+            <span class="text-success bold" *ngIf="item.status == 1">
+              APROBADO
+            </span>
+            <span class="text-danger bold" *ngIf="item.status !== 1">
+              RECHAZADO
+            </span>
+          </p>
+
+          <p *ngIf="item.operationType == 4" class="status">
+            <span class="text-danger bold" *ngIf="item.status == 0">
+              RECHAZADO
+            </span>
+            <span class="text-warning bold" *ngIf="item.status == 1">
+              ESPERANDO APROBACIÓN
+            </span>
+            <span class="text-success bold" *ngIf="item.status == 2">
+              APROBADO
+            </span>
+            <span class="text-danger bold" *ngIf="item.status == 3">
+              NO CONFIRMADO
+            </span>
+          </p>
+          <p class="date-transaction">{{item.created_at * 1000 | date:'dd/MM/yyyy hh:mm:ss aa'}}</p>
+          <span class="amount status ">
+            <span *ngIf="item.debe == 2">-</span>
+            <span *ngIf="item.debe == 1">+</span>
+            <span *ngIf="item.operationType != 9">{{ simboloMoneda }} {{transform(item.amount)}}</span>
+            <span *ngIf="item.operationType == 9">{{ simboloMoneda }} {{transform(item.commission)}}</span>
+            
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="banplus-neutral" (click)="detailsTransaction(item)">
+          <ion-icon slot="start" name="eye"></ion-icon>
+          Ver
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <!-- <img src="/assets/img/illustrations/last-transactions2.svg" alt="">-->
+  </ion-list>
+  <br>
+  <br>
+  <p style="font-size:10px; padding: auto;">Powered by Diemo</p>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="presentModal2()">
+  <ion-fab-button color="banplus-neutral">
+    <ion-icon name="qr-code"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<detail-transaction (close)="outputDetailsTransaction($event)" [transaction]="transaction" *ngIf="showDetails"></detail-transaction>

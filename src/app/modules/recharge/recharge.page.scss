@@ -1,0 +1,16 @@
+ion-back-button{
+    --color: white !important;
+}
+
+ion-label{
+    font-size: 0.65rem;
+}
+ion-segment-button{
+    //--background-checked: green;
+    --color-checked: var(--ion-color-banplus-secondary);
+    text-transform: none;
+}
+
+.bp-tab{
+    font-size: 0.8rem;
+}

@@ -1,0 +1,31 @@
+.wrapper-mobile{
+    padding: 1rem;
+}
+.grid{
+    display: grid;
+    grid-template-columns: [number]10%  [description]85%;
+}
+.bounded-number{
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-top: .1rem;
+    background: var(--ion-color-banplus-light);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 1rem;
+    align-self: center;
+    grid-area: number;
+}
+ion-card{
+    grid-area : description;
+    text-align: justify;
+}
+.text-mobile{
+    font-size: 1.1rem;
+    padding-left: .5rem;
+    padding-right: 0.5rem;
+}
+ion-button{
+    --border-radius : 2rem;
+}

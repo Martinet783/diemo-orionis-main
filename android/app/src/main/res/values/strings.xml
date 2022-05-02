@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Wallet Plus</string>
+    <string name="title_activity_main">Wallet Plus</string>
+    <string name="package_name">com.mobile.diemo.walletplus</string>
+    <string name="custom_url_scheme">com.mobile.diemo.walletplus</string>
+</resources>

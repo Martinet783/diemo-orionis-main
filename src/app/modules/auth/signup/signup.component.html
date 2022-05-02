@@ -1,0 +1,294 @@
+<ion-content>
+  <div class="wrapper-logo">
+    <img src="/assets/img/logo/banplus/wallet-plus.png" class="logo" alt="">
+  </div>
+  <form [formGroup]="signupForm" (ngSubmit)="submitForm()" novalidate class="p-2 pt-0">
+    <ion-list>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input formControlName="firstName" type="text" placeholder="Nombre"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.firstName.errors?.required">
+            Nombre es requerido
+          </p>
+          <p class="error" *ngIf="isSubmitted && f.firstName.errors?.pattern">
+            Este campo sólo acepta letras
+          </p>
+
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Apellido</ion-label>
+            <ion-input formControlName="lastName" type="text" placeholder="Apellido"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.lastName.errors?.required">
+            Apellido es requerido
+          </p>
+          <p class="error" *ngIf="isSubmitted && f.lastName.errors?.pattern">
+            Este campo sólo acepta letras
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-datetime 
+        cancelText="Cancelar" 
+        done-text="Listo" 
+        displayFormat="YYYY-MMM-DD" 
+        max="2008" 
+        formControlName="birthdate" 
+        placeholder="Fecha de nacimiento"></ion-datetime>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.birthdate.errors?.required">
+        Fecha de nacimiento es requerida
+      </p>
+      
+      <ion-list>
+        <ion-radio-group formControlName="idGender">
+          <ion-list-header>
+            <ion-label class="gender-label bp-text">
+              Género
+            </ion-label>
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label class="gender-label bp-text">MASCULINO</ion-label>
+            <ion-radio value=0></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="gender-label bp-text">FEMENINO</ion-label>
+            <ion-radio value=1></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label class="gender-label bp-text">NO BINARIO</ion-label>
+            <ion-radio value=2></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <p class="error" *ngIf="isSubmitted && f.idGender.errors?.required">
+        Género es requerido
+      </p>
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Correo electrónico</ion-label>
+        <ion-input formControlName="emailID" type="email" placeholder="XXXXXXX@XXXXX.XXX"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.emailID.errors?.required">
+        Email es requerido
+      </p>
+      <p class="error" *ngIf="isSubmitted && f.emailID.errors?.email">
+        Email no es válido
+      </p>
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Confirma tu correo electrónico</ion-label>
+        <ion-input formControlName="emailID_match" type="email" placeholder="XXXXXXX@XXXXX.XXX"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.emailID_match.errors?.required">
+        Email es requerido
+      </p>
+      <p class="error" *ngIf="f.emailID_match.errors?.NoEmailIDMatch">
+        Los correos electrónicos no coinciden
+      </p>
+
+      <!-- <p class="text-center description">"TIPO" es el tipo de documento de identidad: EXTRANJERO, VENEZOLANO, PASAPORTE</p> -->
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Tipo de documento</ion-label>
+            <ion-select formControlName="idDocumentType" interface="action-sheet" placeholder="Selecciona una operadora">
+              <ion-select-option value="" selected disabled> Tipo de documento </ion-select-option>
+              <ion-select-option value=0>V - CÉDULA VENEZOLANO</ion-select-option>
+              <ion-select-option value=1>E - CÉDULA EXTRANJERO</ion-select-option>
+              <!-- <ion-select-option value=1>EXTRANJERO</ion-select-option> -->
+              <ion-select-option value=2>P - PASAPORTE</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.idDocumentType.errors?.required">
+            Tipo de documento es requerido
+          </p>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Nro. Documentación</ion-label>
+            <ion-input formControlName="documento" type="number" placeholder="Nro. Documentación"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.documento.errors?.required">
+            Nro. Documentación es requerido
+          </p>
+          <p class="error" *ngIf="isSubmitted && f.documento.errors?.pattern">
+            Nro. Documentación sólo acepta números
+          </p>
+        </ion-col>
+        <!-- <ion-col>
+          <ion-item lines="full">
+            <ion-label position="stacked">Repita Nro. Documentación</ion-label>
+            <ion-input formControlName="documentoID_Match" type="number" placeholder="Repita Nro. Documentación"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="f.emailID_match.errors?.NoEmailIDMatch">
+            Los Nros. de Documentación no coinciden.
+          </p>
+        </ion-col> -->
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Cod. de Operadora</ion-label>
+            <ion-select formControlName="operator" interface="action-sheet" placeholder="Selecciona una operadora">
+              <ion-select-option value="" selected disabled> Cod. de Operadora </ion-select-option>
+              <ion-select-option value=414>0414</ion-select-option>
+              <ion-select-option value=424>0424</ion-select-option>
+              <ion-select-option value=412>0412</ion-select-option>
+              <ion-select-option value=426>0426</ion-select-option>
+              <ion-select-option value=416>0416</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.operator.errors?.required">
+            Operadora es requerida
+          </p>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Teléfono</ion-label>
+            <ion-input formControlName="subPhoneNo" type="text" inputmode="numeric" (ionChange)="onKeyPhone($event, f.subPhoneNo)" placeholder="Teléfono"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.subPhoneNo.errors?.required">
+            Teléfono es requerido
+          </p>
+          <p class="error" *ngIf="isSubmitted && f.subPhoneNo.errors?.pattern">
+            Teléfono sólo acepta números
+          </p>
+          <span class="error" *ngIf="f.subPhoneNo.errors?.maxlength || f.subPhoneNo.errors?.minlength">
+            Teléfono debe ser de 7 caracteres numéricos
+          </span>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input formControlName="user" type="text" placeholder="Usuario"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.user.errors?.required">
+        Username es requerido
+      </p>
+      <p class="error" *ngIf="f.user.errors?.pattern">
+        Username solo acepta letras, números, punto (.) y guión bajo (_)
+      </p>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Contraseña</ion-label>
+            <ion-input formControlName="password" type="password" placeholder="Contraseña"></ion-input>
+          </ion-item>
+
+          <p class="error" *ngIf="isSubmitted && f.password.errors?.required">
+            Contraseña es requerida
+          </p>
+
+        </ion-col>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Repetir contraseña</ion-label>
+            <ion-input formControlName="repeat_password" type="password" placeholder="Repetir contraseña"></ion-input>
+          </ion-item>
+
+          <p class="error" *ngIf="isSubmitted && f.repeat_password.errors?.required">
+            Repetir contraseña es requerida
+          </p>
+
+        </ion-col>
+        <p class="error" *ngIf="f.password.errors?.hasNumber">
+          Al menos un número
+        </p>
+        <p class="error" *ngIf="f.password.errors?.hasCapitalCase">
+          Al menos una letra mayúscula
+        </p>
+        <p class="error" *ngIf="f.password.errors?.hasSmallCase">
+          Al menos una letra minúscula
+        </p>
+        <p class="error" *ngIf="f.password.errors?.hasSpecialCharacters">
+          Al menos un caracter especial
+        </p>
+        <p class="error" *ngIf="f.password.errors?.minlength || f.password.errors?.maxlength">
+          Mínimo 8 caracteres, máximo 16
+        </p>
+        <p class="error" *ngIf="f.repeat_password.errors?.NoPassswordMatch">
+          Las contraseñas no coinciden
+        </p>
+      </ion-row>
+
+      <!-- <ion-row>
+        <ion-col>
+          <ion-item lines="full">
+            <ion-label position="stacked">Código de invitación</ion-label>
+            <ion-input formControlName="invitationCode" type="password" placeholder="Código de invitación"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">PIN</ion-label>
+            <ion-input 
+            formControlName="pin" 
+            id="pin" 
+            (ionChange)="onKeyPin($event, f.pin)" type="text" placeholder="PIN"></ion-input>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.pin.errors?.required">
+            PIN numérico es requerido
+          </p>
+          <p class="error" *ngIf="f.pin.errors?.pattern">
+            El PIN tiene que ser numérico
+          </p>
+          <p class="error" *ngIf="f.pin.errors?.maxlength && f.pin.errors?.minlength">
+            El PIN tiene que ser de 4 digitos numéricos
+          </p>
+        </ion-col>
+
+      </ion-row>
+      <br>
+      <p class="error text-center small">El PIN de 4 dígitos se solicitará en todas las transacciones.</p>
+      <br>
+      <input style="margin: 5px;" type="checkbox" (change)="tyc=!tyc"> Al registrar una cuenta en Wallet Plus, declaro que he leído y aceptado los <a style="text-decoration:none;color:#a4c639;font-weight:bold" target="_blank" href="https://cdn.midiemo.com/tyc.pdf">términos y condiciones.</a>
+      <br>
+      <ion-row>
+        <ion-col>
+          <ion-button [disabled]="!tyc" type="submit" color="banplus-light" expand="block">
+            <span *ngIf="!loading">REGISTRARME</span>
+            <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <br>
+      <ion-row>
+        <ion-col>
+          <ion-text class="d-flex justify-content-center small bold" [routerLink]="['/auth/signin']" routerLinkActive="router-link-active">
+            ¿YA TIENES CUENTA? INICIA SESIÓN
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+  </form>
+</ion-content>
+<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <defs>
+    <linearGradient id="gradient">
+      <stop offset="5%" stop-color="#6ABF4B"></stop> 
+      <stop offset="95%" stop-color="#a4c639"></stop>
+    </linearGradient>
+  </defs>
+  <path fill="url(#gradient)" fill-opacity="1"
+    d="M0,128L48,133.3C96,139,192,149,288,176C384,203,480,245,576,245.3C672,245,768,203,864,170.7C960,139,1056,117,1152,117.3C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+  </path>
+</svg> -->

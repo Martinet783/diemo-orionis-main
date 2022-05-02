@@ -1,0 +1,124 @@
+<ion-content>
+  <!-- <img class="displayed" src="assets/img/illustrations/fill-bank-form.svg" alt=""> -->
+  <form [formGroup]="bankForm" (ngSubmit)="onSubmit()" class="form_bank">
+    <ion-label style="margin-left: 1.5rem;">La recarga fue realizada:</ion-label>
+    <ion-item lines="none" class="bp-text">
+      <ion-col>
+        <input  type="radio" formControlName="madeBy" name="madeBy" value="0"/> Por mí
+      </ion-col>
+      <ion-col>
+        <input type="radio" formControlName="madeBy" name="madeBy" value="1"/> Por un tercero
+      </ion-col>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.madeBy.errors?.required">
+      Campo requerido
+    </span>
+
+    <ion-item *ngIf="options === '1'" class="bp-text">
+      <ion-label position="stacked" >Tipo de documento</ion-label>
+      <ion-select formControlName="idDocumentType" interface="action-sheet" placeholder="Selecciona tipo de documento">
+        <ion-select-option value="" selected disabled> Tipo de documento </ion-select-option>
+        <ion-select-option value='V'>V - CÉDULA VENEZOLANO</ion-select-option>
+        <ion-select-option value='E'>E - CÉDULA EXTRANJERO</ion-select-option>
+        <ion-select-option value='J'>J - RIF</ion-select-option>
+        <ion-select-option value='P'>P - PASAPORTE</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.idDocumentType.errors?.required">
+      Tipo de documento es requerido
+    </span>
+
+    <ion-item *ngIf="options === '1'" class="bp-text">
+      <ion-label position="stacked">Nro. Documentación</ion-label>
+      <ion-input formControlName="document" type="tel" placeholder="Nro. Documentación"></ion-input>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.document.errors?.required">
+      Nro. Documentación es requerido
+    </span>
+    <span class="error" *ngIf="submitted && f.document.errors?.pattern">
+      Nro. Documentación sólo acepta números
+    </span>
+    
+    <ion-item *ngIf="options === '1'" class="bp-text">
+      <ion-label position="stacked">Cod. de Operadora</ion-label>
+      <ion-select formControlName="operator" interface="action-sheet" placeholder="Selecciona una operadora">
+        <ion-select-option value="" selected disabled> Cod. de Operadora </ion-select-option>
+        <ion-select-option value=414>0414</ion-select-option>
+        <ion-select-option value=424>0424</ion-select-option>
+        <ion-select-option value=412>0412</ion-select-option>
+        <ion-select-option value=426>0426</ion-select-option>
+        <ion-select-option value=416>0416</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.operator.errors?.required">
+      Operadora es requerida
+    </span>
+
+    <ion-item *ngIf="options === '1'" class="bp-text">
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input formControlName="subPhoneNo" type="text" inputmode="numeric" (ionChange)="onKeyPhone(f.subPhoneNo)" placeholder="Teléfono"></ion-input>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.subPhoneNo.errors?.required">
+      Teléfono es requerido
+    </span>
+    <span class="error" *ngIf="submitted && f.subPhoneNo.errors?.pattern">
+      Teléfono sólo acepta números
+    </span>
+    <span class="error" *ngIf="f.subPhoneNo.errors?.maxlength || f.subPhoneNo.errors?.minlength">
+      Teléfono debe ser de 7 caracteres numéricos
+    </span>
+
+    <ion-item class="bp-text">
+      <ion-label position="stacked">Número de referencia</ion-label>
+      <ion-input formControlName="referenceNumber" type="tel" placeholder="Número de referencia"></ion-input>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.referenceNumber.errors?.required">
+      Número de referencia es requerido
+    </span>
+    <span class="error" *ngIf="submitted && f.referenceNumber.errors?.pattern">
+      Número de referencia sólo acepta números
+    </span>
+
+    <ion-item class="bp-text">
+      <ion-label position="stacked">Banco</ion-label>
+      <ion-select formControlName="bankCode" cancelText="Cancelar" interface="action-sheet" placeholder="Selecciona un banco">
+        <ion-select-option value="" selected disabled>Selecciona un banco</ion-select-option>
+        <ion-select-option *ngFor="let item of listBank" [value]="item.codigo" > {{item.nombre}} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.bankCode.errors?.required">
+      Por favor seleccione una opción
+    </span>
+    
+    <ion-item class="bp-text">
+      <ion-label position="stacked">Monto en Bs.</ion-label>
+      <input class="amount" currencyMask type="tel" formControlName="amount" [options]="{ align: 'left', allowZero: false, allowNegative: false, prefix: '', thousands: '.', decimal: ',' }"/>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.amount.errors?.required">
+      Monto es requerido
+    </span>
+    <span class="error" *ngIf="submitted && f.amount.errors?.pattern">
+      Monto sólo acepta números y punto . para separar decimales
+    </span>
+
+    <ion-item class="bp-text">
+      <ion-label position="stacked">Fecha</ion-label>
+      <ion-datetime formControlName="date" cancelText="Cancelar" done-text="Listo" displayFormat="DD/MM/YYYY" placeholder="Selecciona una fecha"></ion-datetime>
+    </ion-item>
+    <span class="error" *ngIf="submitted && f.date.errors?.required">
+      Por favor seleccione una fecha
+    </span>
+    <br>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="banplus-neutral" [disabled]="loading" expand="block">
+          <span *ngIf="!loading">RECARGA</span>
+          <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+        </ion-button>
+        <ion-button *ngIf="!loading" type="button" color="banplus-info-dark" expand="block" (click)="close()">
+          <span>CERRAR</span>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

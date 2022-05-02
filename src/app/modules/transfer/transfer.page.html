@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar color="banplus-primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="text-center bold" style="color: white;">Realizar Transferencias</ion-title>
+    <ion-buttons slot="end" (click)="scanQR()">
+      <fa-icon [icon]=faQrcode style="color: white;" size="2x" [classes]="['mr']"></fa-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-card class="balance-card wrapper-balance">
+
+    <ion-text class="text-divisa bp-dark-gray">
+      Saldo {{ divisa | uppercase}} 
+    </ion-text>
+
+    <div class="wrap-balance">
+      <balance></balance>
+    </div>
+      
+  </ion-card>
+
+  <div class="wrapper-description">
+    <br>
+    <ion-text class="text-center">
+      Si deseas transferir a un usuario frecuente,<br> puedes buscarlo en tus favoritos
+    </ion-text>
+  </div>
+  <br>
+  <div class="button-flex d-flex justify-content-center">
+    <ion-button class="send" size=small color="banplus-neutral" strong=true (click)="showContacts()">
+      <!-- <fa-icon [icon]="faHeart"></fa-icon> --> <span class="pl-span"> Contactos favoritos </span>
+    </ion-button>
+  </div>
+
+  <ion-item>
+    <ion-label>Moneda</ion-label>
+    <ion-badge class="euro" slot="end" *ngIf="divisa == 'eur'">EUROS</ion-badge>
+    <ion-badge class="dolar" slot="end" *ngIf="divisa == 'usd'">DÓLARES</ion-badge>
+    <ion-badge class="bolivar" slot="end" *ngIf="divisa == 'bs'">BOLÍVARES</ion-badge>
+  </ion-item>
+
+  
+
+  <form [formGroup]="transferForm" novalidate class="p-1">
+    <ion-list>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Cod. de Operadora</ion-label>
+            <ion-select formControlName="operator" interface="action-sheet" placeholder="Selecciona una operadora">
+                <ion-select-option value="" selected disabled> Cod. de Operadora </ion-select-option>
+                <ion-select-option value=414>0414</ion-select-option>
+                <ion-select-option value=424>0424</ion-select-option>
+                <ion-select-option value=412>0412</ion-select-option>
+                <ion-select-option value=426>0426</ion-select-option>
+                <ion-select-option value=416>0416</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <p class="error" *ngIf="isSubmitted && f.operator.errors?.required">
+            Cod. de Operadora es requerido
+          </p>
+        </ion-col>
+          <ion-col>
+            <ion-item lines="full" class="bp-text">
+              <ion-label position="stacked">Teléfono</ion-label>
+              <ion-input formControlName="subNo" type="text" inputmode="numeric" (ionChange)="onKeyPhone(f.subNo)" placeholder="Teléfono"></ion-input>
+            </ion-item>
+            <p class="error" *ngIf="isSubmitted && f.subNo.errors?.required">
+              Teléfono es requerido
+            </p>
+            <p class="error" *ngIf="isSubmitted && f.subNo.errors?.pattern">
+              Teléfono solo acepta números
+            </p>
+            <span class="error" *ngIf="f.subNo.errors?.maxlength || f.subNo.errors?.minlength">
+              Teléfono debe ser de 7 caracteres numéricos
+            </span>
+          </ion-col>
+      </ion-row>
+
+      <!-- <ion-item lines="full"> -->
+        <!-- <ion-label position="stacked">Monto</ion-label>
+        <ion-input formControlName="amount" type="number" placeholder="{{ monto }}"></ion-input>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.required">
+        Monto es requerido
+      </p>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.pattern">
+        Este campo solo acepta números
+      </p> -->
+
+      <!-- <ion-item lines="full">
+        <ion-label position="stacked" for="lb">Monto</ion-label> 
+        <input formControlName = 'amount' class="form-control" id = "lb" [textMask]="{mask:numberMask}" type ="tel" />
+      </ion-item> -->
+
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">Monto</ion-label>
+        <input class="amount" currencyMask type="tel" formControlName="amount" [options]="{ align: 'left', allowZero: false, allowNegative: false, prefix: '', thousands: '.', decimal: ',' }"/>
+      </ion-item>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.required">
+        Monto es requerido
+      </p>
+      <p class="error" *ngIf="isSubmitted && f.amount.errors?.pattern">
+        Este campo solo acepta números
+      </p>
+
+      <ion-item lines="full" class="bp-text">
+        <ion-label position="stacked">PIN</ion-label>
+        <ion-input formControlName="pin" inputmode="numeric" (ionChange)="onKeyPin(f.pin)" type="text" placeholder="PIN" id="pin"></ion-input>
+      </ion-item>
+      <br>
+      <span class="error" *ngIf="isSubmitted && f.pin.errors?.required">
+        PIN es requerido
+      </span>
+      <span class="error" *ngIf="f.pin.errors?.maxlength || f.pin.errors?.minlength">
+        El PIN debe ser de 4 caracteres numéricos
+      </span>
+      <span class="error" *ngIf="f.pin.errors?.pattern">
+        El PIN debe ser numérico
+      </span>
+
+      <br>
+      
+      <div class="d-flex justify-content-center mt-1" >
+
+        <ion-toggle formControlName="add_friend" (ionChange)="change_toggle($event)"></ion-toggle>
+        <ion-label class="add-text">Añadir a favoritos</ion-label>
+
+      </div>
+      <ion-row>
+
+        <ion-col *ngIf="add_contact">
+          <ion-item lines="full" class="bp-text">
+            <ion-label position="stacked">Alias</ion-label>
+            <ion-input formControlName="alias" type="text" placeholder="Alias"></ion-input>
+          </ion-item>
+          <span class="error" *ngIf="isSubmitted && f.alias.errors?.required">
+            Alias es requerido
+          </span>
+        </ion-col>
+      </ion-row>
+
+
+
+    </ion-list>
+    <br>
+    <ion-button class="send" expand="block" color="banplus-neutral" (click)="submitForm()">
+      <span *ngIf="!loading">Transferir</span>
+      <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+    </ion-button>
+    <br>
+  </form>
+
+</ion-content>
+
+<detail-transaction (close)="outputDetailsTransaction($event)" [transaction]="transaction" *ngIf="showDetails"></detail-transaction>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>813210146608-l2j8ijbef801hkf9fg0kvuml5m1ubics.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.813210146608-l2j8ijbef801hkf9fg0kvuml5m1ubics</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBu6nxvwjVuX0zq60Nux5rFhgSJ-j-GzYQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>813210146608</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mobile.diemo.walletplus</string>
+	<key>PROJECT_ID</key>
+	<string>walbplus</string>
+	<key>STORAGE_BUCKET</key>
+	<string>walbplus.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:813210146608:ios:5e16feb5c95583f5c41af5</string>
+</dict>
+</plist>

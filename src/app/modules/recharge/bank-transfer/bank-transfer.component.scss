@@ -1,0 +1,63 @@
+.wrapper-mobile{
+    padding: 1rem;
+}
+
+.text-mobile{
+    font-size: 1.1rem;
+    padding-left: .5rem;
+    padding-right: 0.5rem;
+}
+
+ion-card{
+    grid-area : description;
+    text-align: justify;
+}
+
+ion-button{
+    --border-radius : 2rem;
+}
+
+.bounded-number{
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-top: .1rem;
+    background: var(--ion-color-banplus-light);
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 1rem;
+    align-self: center;
+    grid-area: number;
+}
+.grid{
+    display: grid;
+    grid-template-columns: [number]10%  [description]85%;
+}
+ul{
+    list-style: none;
+    padding-left: .5rem;
+}
+li{
+    font-size: .8rem;
+}
+li:nth-child(1){
+    padding-left: .1rem;
+    margin-bottom: .3rem;
+}
+li:nth-child(1) span{
+    padding-left: .2rem;
+}
+li:nth-child(2){
+    padding-left: .1rem;
+}
+li:nth-child(2) span{
+    padding-left: .2rem;
+}
+.mb-li{
+    margin-bottom: .2rem;
+}
+.separator{
+    border-bottom: 2px solid var(--ion-color-banplus-info);
+    width: 98%;
+}
+

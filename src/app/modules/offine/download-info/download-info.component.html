@@ -1,0 +1,33 @@
+<ion-content>
+  
+  <div class="d-flex justify-content-center mt-2">
+    <!-- <img src="assets/img/illustrations/security-word-confirmed.svg" class="img-forgot" alt=""> -->
+  </div>
+  <br>
+  <div class="d-flex justify-content-center p-1">
+    <ion-text class="small jf bp-text"> Introduce la palabra de seguridad para descargar tu información y poder realizar pagos sin conexión</ion-text>
+  </div>
+  <br>
+  <div class="d-flex justify-content-center" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <form [formGroup]="validateCodeForm" class="wrapper-form" *ngIf="!loading">
+    <ion-item class="bp-text">
+      <ion-label position="floating">Palabra de seguridad</ion-label>
+      <ion-input formControlName="code" type="password"></ion-input>
+    </ion-item>
+    <p class="error" *ngIf="isSubmitted && f.code.errors?.required">
+      PALABRA DE SEGURIDAD ES REQUERIDA
+    </p>
+  </form>
+  <ion-button color=banplus-neutral expand=block (click)="onSubmit()" *ngIf="!loading">
+    <ion-label *ngIf="showDiscard">Guardar Cambios</ion-label> 
+    <ion-label *ngIf="!showDiscard">Listo</ion-label> 
+  </ion-button>
+  <ion-button color=banplus-dark expand=block (click)="cancelar()" *ngIf="!loading && showDiscard">
+    Descartar
+  </ion-button>
+  <ion-button color=banplus-info-dark expand=block (click)="close()" *ngIf="!loading">
+    Cancelar
+  </ion-button>
+</ion-content>

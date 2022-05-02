@@ -1,0 +1,24 @@
+<ion-content>
+  <fa-icon [icon]=faTimes [classes]="['close-icon']" (click)="close()" class="bp-blue"></fa-icon>
+  
+  <div class="d-flex justify-content-center mt-2">
+    <!-- <img src="assets/img/illustrations/sms-code-received.svg" class="img-forgot" alt="">-->
+  </div>
+  <br>
+  <div class="d-flex justify-content-center p-1">
+    <ion-text class="small"> Introduce el código de seguridad enviado a tu número telefónico o correo electrónico</ion-text>
+  </div>
+  <br>
+  <form [formGroup]="validateCodeForm" class="wrapper-form">
+    <ion-item>
+      <ion-label position="floating">CÓDIGO DE SEGURIDAD</ion-label>
+      <ion-input formControlName="smsCode" type="number"></ion-input>
+    </ion-item>
+  </form>
+  <ion-button color=banplus-neutral expand=block (click)="onSubmit()">
+    LISTO
+  </ion-button>
+  <ion-button color=banplus-dark expand=block (click)="resendSmsCode()">
+    REENVIAR CÓDIGO
+  </ion-button>
+</ion-content>

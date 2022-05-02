@@ -1,0 +1,17 @@
+.wrapper-details{
+    display: flex;
+    flex-direction: column;
+}
+
+.item-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+ion-content >*{
+    color: #888b8d;
+}
+
+.bp-text{
+    color: #888b8d;
+}
